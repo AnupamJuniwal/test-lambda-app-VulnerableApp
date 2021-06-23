@@ -1,0 +1,1 @@
+{"version":"0.0.1","name":"delete-test-01","dependencies":{"aws-sdk":{"version":"2.795.0"},"axios":{"version":"0.21.1"},"lodash":{"version":"4.17.21"},"request":{"version":"2.88.2"},"ws":{"version":"5.2.2"}}}

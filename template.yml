@@ -1,0 +1,75 @@
+# This is the SAM template that represents the architecture of your serverless application
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-template-basics.html
+
+# The AWSTemplateFormatVersion identifies the capabilities of the template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  demo-lambda
+
+# Transform section specifies one or more macros that AWS CloudFormation uses to process your template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
+Transform:
+- AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Environment:
+      Variables:
+        NODE_OPTIONS: --require /opt/k2-njs-agent/
+        AWS_EXECUTION_ENV: AWS_Lambda_nodejs12.x
+        K2_HOST_IP: 35.166.126.67
+        K2_ENV: trace
+        AWS_LAMBDA_ARN: arn:aws:lambda:us-west-2:733001177088:function:test-lambda-app-VulnerableApp-kRsMgLIyM5EF
+        MONGO_URI: mongodb://35.166.126.67:27017/injectable1
+        MYSQL_HOST: 35.166.126.67
+        MYSQL_ROOT_PASSWORD: ''
+        MYSQL_DB: K2test
+        LDAP_HOST: 35.166.126.67
+        LAMBDA_ENABLE_RESPONSE_BLOCKING: false
+
+# Resources declares the AWS resources that you want to include in the stack
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
+Resources:
+  TestNodeVulnerableAppRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: TestNodeVulnerableAppRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: [lambda.amazonaws.com]
+            Action: ['sts:AssumeRole']
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaRole
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+
+  # This is a Lambda function config associated with the source code: cmd.js
+  VulnerableApp:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/index.handler
+      Runtime: nodejs12.x
+      MemorySize: 128
+      Timeout: 120
+      Description: Sample lambda with multiple vulnurabilities
+      Role: !GetAtt [TestNodeVulnerableAppRole, Arn]
+      Layers:
+        - arn:aws:lambda:us-west-2:733001177088:layer:K2-NJS:336
+      Events:               
+        Api:                
+          Type: Api         
+          Properties:       
+            Path: /{param}
+            Method: POST
+      # VpcConfig:
+      #   SecurityGroupIds:
+      #     - sg-07bda40b99ee5ca97
+      #   SubnetIds:
+      #     - subnet-91739acb
+      #     - subnet-0b3c0f6d
+      #     - subnet-fc466fd4
+      #     - subnet-b36f3cfb

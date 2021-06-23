@@ -1,0 +1,531 @@
+{
+	"info": {
+		"_postman_id": "37014acf-98f9-4ae1-86eb-14dd3e441caa",
+		"name": "lambda-test-node-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "invoke",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"runner\": \"lambdaInvoke\",\n    \"args\": [\n        \"{{LAMBDA_ARN_2}}\",\n        \"$LATEST\",\n        \"{\\\"cmd\\\": \\\"ls -lrt /\\\"}\"\n    ]\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{LAMBDA_HOST_1}}/param12?asdf=llc1&uio=51&uio=52",
+					"protocol": "https",
+					"host": [
+						"{{LAMBDA_HOST_1}}"
+					],
+					"path": [
+						"param12"
+					],
+					"query": [
+						{
+							"key": "asdf",
+							"value": "llc1"
+						},
+						{
+							"key": "uio",
+							"value": "51"
+						},
+						{
+							"key": "uio",
+							"value": "52"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rci",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"runner\": \"rci\",\n    \"args\": [\n        \"require('child_process').exec('ps -ef')\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{LAMBDA_HOST_1}}/param12?asdf=llc1&uio=51&uio=52",
+					"protocol": "https",
+					"host": [
+						"{{LAMBDA_HOST_1}}"
+					],
+					"path": [
+						"param12"
+					],
+					"query": [
+						{
+							"key": "asdf",
+							"value": "llc1"
+						},
+						{
+							"key": "uio",
+							"value": "51"
+						},
+						{
+							"key": "uio",
+							"value": "52"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "exec",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"runner\": \"exec\",\n    \"args\": [\n        \"spawnSync\",\n        \"bash\",\n        \"-c\",\n         \"npm root -g \"\n    ]\n}"
+				},
+				"url": {
+					"raw": "https://{{LAMBDA_HOST_1}}/param12?asdf=llc1&uio=51&uio=52",
+					"protocol": "https",
+					"host": [
+						"{{LAMBDA_HOST_1}}"
+					],
+					"path": [
+						"param12"
+					],
+					"query": [
+						{
+							"key": "asdf",
+							"value": "llc1"
+						},
+						{
+							"key": "uio",
+							"value": "51"
+						},
+						{
+							"key": "uio",
+							"value": "52"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ssrf",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"runner\": \"ssrf\",\n    \"args\": [\n        \"request\",\n        \"info.cern.ch\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "https://{{LAMBDA_HOST_1}}/param12?asdf=llc1&uio=51&uio=52",
+					"protocol": "https",
+					"host": [
+						"{{LAMBDA_HOST_1}}"
+					],
+					"path": [
+						"param12"
+					],
+					"query": [
+						{
+							"key": "asdf",
+							"value": "llc1"
+						},
+						{
+							"key": "uio",
+							"value": "51"
+						},
+						{
+							"key": "uio",
+							"value": "52"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "xss",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"runner\": \"xss\",\n    \"args\": [\n        \"<Script> alert(\\\"Hello\\\")</Script>\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "https://{{LAMBDA_HOST_1}}/param12?asdf=llc1&uio=51&uio=52",
+					"protocol": "https",
+					"host": [
+						"{{LAMBDA_HOST_1}}"
+					],
+					"path": [
+						"param12"
+					],
+					"query": [
+						{
+							"key": "asdf",
+							"value": "llc1"
+						},
+						{
+							"key": "uio",
+							"value": "51"
+						},
+						{
+							"key": "uio",
+							"value": "52"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "path traversal",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"runner\": \"pathTraversal\",\n    \"args\": [\n        \"readFile\",\n        \"../../../../../../../../../../etc/passwd\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "https://{{LAMBDA_HOST_1}}/param12?asdf=llc1&uio=51&uio=52",
+					"protocol": "https",
+					"host": [
+						"{{LAMBDA_HOST_1}}"
+					],
+					"path": [
+						"param12"
+					],
+					"query": [
+						{
+							"key": "asdf",
+							"value": "llc1"
+						},
+						{
+							"key": "uio",
+							"value": "51"
+						},
+						{
+							"key": "uio",
+							"value": "52"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Make busy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"runner\": \"lateReply\",\n    \"args\": [\n        20000\n    ]\n}\n\n"
+				},
+				"url": {
+					"raw": "https://{{LAMBDA_HOST_1}}/param12?asdf=llc1&uio=51&uio=52",
+					"protocol": "https",
+					"host": [
+						"{{LAMBDA_HOST_1}}"
+					],
+					"path": [
+						"param12"
+					],
+					"query": [
+						{
+							"key": "asdf",
+							"value": "llc1"
+						},
+						{
+							"key": "uio",
+							"value": "51"
+						},
+						{
+							"key": "uio",
+							"value": "52"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "file",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"runner\": \"file\",\n    \"args\": [\n        \"fileReadAttack\",\n        \"/etc/passwd\"\n    ]\n}\n\n"
+				},
+				"url": {
+					"raw": "http://{{LAMBDA_HOST_1}}/param12?asdf=llc1&uio=51&uio=52",
+					"protocol": "http",
+					"host": [
+						"{{LAMBDA_HOST_1}}"
+					],
+					"path": [
+						"param12"
+					],
+					"query": [
+						{
+							"key": "asdf",
+							"value": "llc1"
+						},
+						{
+							"key": "uio",
+							"value": "51"
+						},
+						{
+							"key": "uio",
+							"value": "52"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sqli",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"runner\": \"sqli\",\n    \"args\": [\n        \"admin' OR '1'='1' --\",\n        \"\"\n    ]\n}\n\n"
+				},
+				"url": {
+					"raw": "http://{{LAMBDA_HOST_1}}/param12?asdf=llc1&uio=51&uio=52",
+					"protocol": "http",
+					"host": [
+						"{{LAMBDA_HOST_1}}"
+					],
+					"path": [
+						"param12"
+					],
+					"query": [
+						{
+							"key": "asdf",
+							"value": "llc1"
+						},
+						{
+							"key": "uio",
+							"value": "51"
+						},
+						{
+							"key": "uio",
+							"value": "52"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "nosqli",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"runner\": \"nosqli\",\n    \"args\": [\n        {\"$gte\":\"\"}\n    ]\n}\n\n"
+				},
+				"url": {
+					"raw": "http://{{LAMBDA_HOST_1}}/param12?asdf=llc1&uio=51&uio=52",
+					"protocol": "http",
+					"host": [
+						"{{LAMBDA_HOST_1}}"
+					],
+					"path": [
+						"param12"
+					],
+					"query": [
+						{
+							"key": "asdf",
+							"value": "llc1"
+						},
+						{
+							"key": "uio",
+							"value": "51"
+						},
+						{
+							"key": "uio",
+							"value": "52"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "xpath",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"runner\": \"xpath\",\n    \"args\": [\n        \"' or '1'='1\",\n        \"' or '1'='1\"\n    ]\n}\n\n"
+				},
+				"url": {
+					"raw": "http://{{LAMBDA_HOST_1}}/param12?asdf=llc1&uio=51&uio=52",
+					"protocol": "http",
+					"host": [
+						"{{LAMBDA_HOST_1}}"
+					],
+					"path": [
+						"param12"
+					],
+					"query": [
+						{
+							"key": "asdf",
+							"value": "llc1"
+						},
+						{
+							"key": "uio",
+							"value": "51"
+						},
+						{
+							"key": "uio",
+							"value": "52"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ldap",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"runner\": \"ldap\",\n    \"args\": [\n        \"*)(uid=*\"\n    ]\n}\n\n"
+				},
+				"url": {
+					"raw": "http://{{LAMBDA_HOST_1}}/param12?asdf=llc1&uio=51&uio=52",
+					"protocol": "http",
+					"host": [
+						"{{LAMBDA_HOST_1}}"
+					],
+					"path": [
+						"param12"
+					],
+					"query": [
+						{
+							"key": "asdf",
+							"value": "llc1"
+						},
+						{
+							"key": "uio",
+							"value": "51"
+						},
+						{
+							"key": "uio",
+							"value": "52"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "LAMBDA_HOST_1",
+			"value": "3e48lc9mok.execute-api.us-west-2.amazonaws.com/Stage"
+		},
+		{
+			"key": "LAMBDA_ARN_2",
+			"value": "arn:aws:lambda:us-west-2:733001177088:function:test-lambda-02"
+		}
+	]
+}

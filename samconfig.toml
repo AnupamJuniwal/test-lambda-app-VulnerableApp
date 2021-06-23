@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "test-lambda-app"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-6fltho8o6wqg"
+s3_prefix = "test-lambda-app"
+region = "us-west-2"
+confirm_changeset = false
+capabilities = "CAPABILITY_NAMED_IAM"
